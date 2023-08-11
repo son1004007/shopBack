@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>	
+</head>
+<body>
+	<h2 th:text="#{common.homeWelcome}"></h2>
+	
+	<p th:text="${serverTime}">시간 표시</p>
+</body>
+</html>
