@@ -26,45 +26,51 @@ import lombok.extern.slf4j.Slf4j;
 public class CodeGroupController {
 	
 	private final CodeGroupService service;
-//	
-//	@GetMapping("/{groupCode}")
-//	public ResponseEntity<CodeGroup> read(@PathVariable("groupCode") String groupCode) throws Exception {
-//		CodeGroup codeGroup = service.read(groupCode);
-//			
-//		return new ResponseEntity<>(codeGroup, HttpStatus.OK);
-//	}
 
+	// 조회
 	@GetMapping
 	public ResponseEntity<List<CodeGroup>> list() throws Exception {
 		log.info("list");
 		
 		return new ResponseEntity<>(service.list(), HttpStatus.OK);
 	}
-//
-//	@PostMapping
-//	public ResponseEntity<CodeGroup> register(@Validated @RequestBody CodeGroup codeGroup) throws Exception {
-//		log.info("register");
-//		
-//		service.register(codeGroup);
-//		
-//		log.info("register codeGroup.getCodeGroupNo() = " + codeGroup.getGroupCode());
-//		
-//		return new ResponseEntity<>(codeGroup, HttpStatus.OK);
-//	}
-//
-//	@DeleteMapping("/{groupCode}")
-//	public ResponseEntity<Void> remove(@PathVariable("groupCode") String groupCode) throws Exception {
-//		service.remove(groupCode);
-//
-//		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-//	}
-//
-//	@PutMapping("/{groupCode}")
-//	public ResponseEntity<CodeGroup> modify(@PathVariable("groupCode") String groupCode, @Validated @RequestBody CodeGroup codeGroup) throws Exception {
-//		codeGroup.setGroupCode(groupCode);
-//		service.modify(codeGroup);
-//		
-//		return new ResponseEntity<>(codeGroup, HttpStatus.OK);
-//	}
+
+	// 등록
+	@PostMapping
+	public ResponseEntity<CodeGroup> register(@Validated @RequestBody CodeGroup codeGroup) throws Exception {
+		log.info("register");
+		
+		service.register(codeGroup);
+		
+		log.info("register codeGroup.getCodeGroupNo() = " + codeGroup.getGroupCode());
+		
+		return new ResponseEntity<>(codeGroup, HttpStatus.OK);
+	}
+	
+	// 수정
+	@PutMapping("/{groupCode}")
+	public ResponseEntity<CodeGroup> modify(@PathVariable("groupCode") String groupCode, @Validated @RequestBody CodeGroup codeGroup) throws Exception {
+		codeGroup.setGroupCode(groupCode);
+		service.modify(codeGroup);
+		
+		return new ResponseEntity<>(codeGroup, HttpStatus.OK);
+	}
+	
+	// 삭제
+	@DeleteMapping("/{groupCode}")
+	public ResponseEntity<Void> remove(@PathVariable("groupCode") String groupCode) throws Exception {
+		service.remove(groupCode);
+
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	// 상세
+	@GetMapping("/{groupCode}")
+	public ResponseEntity<CodeGroup> read(@PathVariable("groupCode") String groupCode) throws Exception {
+		CodeGroup codeGroup = service.read(groupCode);
+			
+		return new ResponseEntity<>(codeGroup, HttpStatus.OK);
+	}
+
 	
 }

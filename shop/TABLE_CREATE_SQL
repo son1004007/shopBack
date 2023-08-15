@@ -1,0 +1,156 @@
+create table code_group (
+   group_code varchar(3) not null
+ , group_name varchar(30) not null
+ , reg_date datetime
+ , upd_date datetime
+ , use_yn varchar(1)
+ , primary key (group_code)
+) engine=InnoDB
+;
+create table code_detail (
+   code_value varchar(3) not null
+ , group_code varchar(3) not null
+ , code_name varchar(30) not null
+ , reg_date datetime
+ , sort_seq integer not null
+ , upd_date datetime
+ , use_yn varchar(1)
+ , primary key (code_value, group_code)
+) engine=InnoDB
+;
+alter table code_detail add constraint FKia64k8m7y2kswgf4c8wt0h3vb foreign key (group_code) references code_group (group_code)
+
+;
+
+create table member (
+   user_no bigint not null auto_increment
+ , coin integer not null
+ , job varchar(3) not null
+ , reg_date datetime
+ , upd_date datetime
+ , user_id varchar(50) not null
+ , user_name varchar(100) not null
+ , user_pw varchar(200) not null
+ , primary key (user_no)
+) engine=InnoDB
+;
+
+create table board (
+   board_no bigint not null auto_increment
+ , content longtext
+ , reg_date datetime
+ , title varchar(200) not null
+ , upd_date datetime
+ , writer varchar(50) not null
+ , primary key (board_no)
+) engine=InnoDB
+
+;
+
+create table notice (
+   notice_no bigint not null auto_increment
+ , content longtext
+ , reg_date datetime
+ , title varchar(200) not null
+ , upd_date datetime
+ , primary key (notice_no)
+)engine=InnoDB
+;
+
+create table item (
+   item_id bigint not null auto_increment
+ , description varchar(250)
+ , item_name varchar(50) not null
+ , picture_url varchar(200)
+ , preview_url varchar(200)
+ , price integer
+ , reg_date datetime
+ , upd_date datetime
+ , primary key(item_id)
+)engine=InnoDB
+
+;
+create table user_item (
+   user_item_no bigint not null auto_increment
+ , item_id bigint
+ , reg_date datetime
+ , upd_date datetime
+ , user_no bigint
+ , primary key (user_item_no)
+)engine=InnoDB
+;
+
+
+create table pds (
+   item_id bigint not null auto_increment
+ , description varchar(255)
+ , item_name varchar(255)
+ , reg_date datetime
+ , upd_date datetime
+ , view_cnt integer
+ , primary key (item_id)
+)engine=InnoDB
+;
+
+create table pds_file (
+   pds_file_id bigint not null auto_increment
+ , down_cnt integer
+ , full_name varchar(200)
+ , reg_date datetime
+ , upd_date datetime
+ , item_id bigint
+ , primary key (pds_file_id)
+)engine=InnoDB
+;
+alter table pds_file add constraint FKfksyos2ceo6mik0iv3ue602yq foreign key (item_id) references pds (item_id)
+
+;
+create table charge_coin_history (
+ history_no bigint not null auto_increment
+ , amount integer not null
+ , reg_date datetime
+ , upd_date datetime
+ , user_no bigint
+ , primary key(history_no)
+)engine=InnoDB
+;
+
+
+create table pay_coin_history (
+   history_no bigint not null auto_increment
+ , amount integer not null
+ , item_id bigint
+ , item_name varchar(255)
+ , reg_date datetime
+ , upd_date datetime
+ , user_no bigint
+ , primary key(history_no)
+)engine=InnoDB
+
+;
+
+
+create table access_log (
+   log_no bigint not null auto_increment
+ , class_name varchar(100) not null
+ , class_simple_name varchar(50) not null
+ , method_name varchar(100) not null
+ , reg_date datetime
+ , remote_addr varchar(50) not null
+ , request_uri varchar(200) not null
+ , upd_date datetime
+ , primary key (log_no)
+)engine=InnoDB
+;
+
+
+create table performance_log (
+   log_no bigint not null auto_increment
+ , duration_time bigint
+ , reg_date datetime
+ , signature_name varchar(50) not null
+ , signature_type_name varchar(100) not null
+ , upd_date datetime
+ , primary key(log_no)
+)engine=InnoDB
+;
