@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -21,20 +22,27 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@JsonIgnoreProperties(value="hibernateLazyInitializer")
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(of = {"groupCode", "codeValue"})
 @Entity
-@EqualsAndHashCode(of="groupCode")
-@Table(name="code_group")
-public class CodeGroup {
+@IdClass(CodeDetailId.class)
+@Table(name="code_detail")
+public class CodeDetail {
+	
 	@Id
 	@Column(length = 3)
 	private String groupCode;
 	
+	@Id
+	@Column(length = 3)
+	private String codeValue;
+	
 	@Column(length = 30, nullable = false)
-	private String groupName;
+	private String codeName;
+	
+	private int sortSeq;
 	
 	@Column(length = 1)
 	private String useYn = "Y";
@@ -46,11 +54,5 @@ public class CodeGroup {
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	@UpdateTimestamp
 	private LocalDateTime updDate;
-	
-	// codeDetail과 관계
-	@JsonIgnore
-	@OneToMany
-	@JoinColumn(name="groupCode")
-	private List<CodeDetail> codeDetails;
 	
 }
