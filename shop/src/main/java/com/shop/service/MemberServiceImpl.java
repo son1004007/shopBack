@@ -91,12 +91,4 @@ public class MemberServiceImpl implements MemberService {
 		return memberList;
 	}
 	
-	// 비밀번호 암호처리기 생성
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-//		PasswordEncoder encoder = new BCryptPasswordEncoder();
-//		return encoder;
-	}
-	
 }
