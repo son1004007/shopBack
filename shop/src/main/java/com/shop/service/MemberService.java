@@ -16,5 +16,9 @@ public interface MemberService {
 
 	public List<Member> list() throws Exception;
 	
+	public void setupAdmin(Member member) throws Exception;
+	
+	public long countAll() throws Exception;
+	
 }
 

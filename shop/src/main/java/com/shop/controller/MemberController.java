@@ -1,10 +1,12 @@
 package com.shop.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.shop.domain.Member;
 import com.shop.service.MemberService;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +32,8 @@ public class MemberController {
 	private final MemberService service;
 	
 	private final PasswordEncoder passwordEncoder;
+	
+	private final MessageSource messageSource;
 
 	@PostMapping
 	public ResponseEntity<Member> register(@Validated @RequestBody Member member) throws Exception {
@@ -75,5 +79,28 @@ public class MemberController {
 		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
 	
+	@PostMapping(value="/setup", produces="text/plain;charset=UTF-8")
+	public ResponseEntity<String> setupAdmin (
+			@Validated 
+			@RequestBody 
+			Member member
+			) throws Exception {
+		
+		log.info("setupAdmin : member.getUserName() = " + member.getUserName());
+		log.info("setupAdmin : service.countAll() = " + service.countAll());
+		
+		if(service.countAll() == 0) {
+			String inputPassword = member.getUserPw();
+			member.setUserPw(passwordEncoder.encode(inputPassword));
+			
+			member.setJob("00");
+			
+			service.setupAdmin(member);
+			
+			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+		}
+		String message = messageSource.getMessage("common.cannotSetupAdmin", null, Locale.KOREAN);
+		return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+	}
 }
 

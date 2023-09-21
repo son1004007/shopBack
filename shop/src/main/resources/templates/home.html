@@ -9,6 +9,7 @@
 <script src="/js/code-group.js"></script>
 <script src="/js/code-detail.js"></script>
 <script src="/js/member.js"></script>
+<script src="/js/app/setup-admin.js"></script>
 <body>
 	<h2 th:text="#{common.homeWelcome}"></h2>
 	
@@ -132,6 +133,29 @@
 		<button id="memberDeleteBtn">DELETE</button>
 		<button id="memberModifyBtn">MODIFY</button>
 		<button id="memberResetBtn">RESET</button>
+	</div>
+	
+	<hr>
+	<h3>Setup Admin</h3>
+	
+	<table>
+	 <tr>
+	  <td><label for="adminId">userId</label></td>
+	  <td><input type="text" value="" id="adminId"></td>
+	 </tr>
+	 <tr>
+	  <td><label for="adminPw">userPw</label></td>
+	  <td><input type="text" value="" id="adminPw"></td>
+	 </tr>
+	 <tr>
+	  <td><label for="adminName">userName</label></td>
+	  <td><input type="text" value="" id="adminName"></td>
+	 </tr>
+	</table>
+	
+	<div>
+	 <button id="adminRegisterBtn">REGISTER</button>
+	 <button id="adminResetBtn">RESET</button>
 	</div>
 </body>
 </html>

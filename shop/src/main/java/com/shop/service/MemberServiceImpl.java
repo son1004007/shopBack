@@ -91,4 +91,24 @@ public class MemberServiceImpl implements MemberService {
 		return memberList;
 	}
 	
+	@Override
+	public void setupAdmin(Member member) throws Exception {
+		Member memberEntity = new Member();
+		memberEntity.setUserId(member.getUserId());
+		memberEntity.setUserPw(member.getUserPw());
+		memberEntity.setUserName(member.getUserName());
+		memberEntity.setJob(member.getJob());
+		
+		MemberAuth memberAuth = new MemberAuth();
+		memberAuth.setAuth("ROLE_ADMIN");
+		
+		memberEntity.addAuth(memberAuth);
+		
+		repository.save(memberEntity);
+	}
+	
+	@Override
+	public long countAll() throws Exception {
+		return repository.count();
+	}
 }
