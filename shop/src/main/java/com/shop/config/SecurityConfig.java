@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @EnableWebSecurity
+// 시큐리티 애너테이션 활성화를 위한 설정을 미리 커밋했었다..
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	

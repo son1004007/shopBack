@@ -4,6 +4,9 @@ $(document).ready(function() {
 			type : "GET",
 			url : "/users",
 			contentType : "application/json; charset=UTF-8",
+			headers : {
+				"Authorization" : "Bearer" + ACCESS_TOKEN
+			},
 			success : function(data) {
 				console.log(data);
 				
@@ -82,6 +85,9 @@ $(document).ready(function() {
 			type : "DELETE",
 			url : "/users/" + $("#userNo").val(),
 			contentType : "application/json; charset=UTF-8",
+			headers : {
+				"Authorization" : "Bearer" + ACCESS_TOKEN
+			},
 			success : function() {
 				alert("Deleted");
 			},
