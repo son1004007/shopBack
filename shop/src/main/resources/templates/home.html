@@ -9,7 +9,8 @@
 <script src="/js/code-group.js"></script>
 <script src="/js/code-detail.js"></script>
 <script src="/js/member.js"></script>
-<script src="/js/app/setup-admin.js"></script>
+<script src="/js/setup-admin.js"></script>
+<script src="/js/login.js"></script>
 <body>
 	<h2 th:text="#{common.homeWelcome}"></h2>
 	
@@ -157,5 +158,26 @@
 	 <button id="adminRegisterBtn">REGISTER</button>
 	 <button id="adminResetBtn">RESET</button>
 	</div>
+	
+		<hr>
+
+	<h3>Login</h3>
+	
+	<table>
+		<tr>
+			<td><label for="userId">userId</label></td>
+			<td><input type="text" value="" id="userId"></td>
+		</tr>
+		<tr>
+			<td><label for="password">password</label></td>
+			<td><input type="text" value="" id="password"></td>
+		</tr>
+	</table>	
+	
+	<div>
+		<button id="loginBtn">login</button> <button id="myInfoBtn">myInfo</button>
+	</div>
+	
+	
 </body>
 </html>

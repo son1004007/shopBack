@@ -3,12 +3,15 @@ package com.shop.controller;
 import java.util.List;
 import java.util.Locale;
 
+import com.shop.common.security.domain.CustomUser;
 import com.shop.domain.Member;
 import com.shop.service.MemberService;
 
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -101,6 +104,18 @@ public class MemberController {
 		}
 		String message = messageSource.getMessage("common.cannotSetupAdmin", null, Locale.KOREAN);
 		return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/myinfo")
+	public ResponseEntity<Member> getMyInfo(@AuthenticationPrincipal CustomUser customUser) throws Exception {		
+		Long userNo = customUser.getUserNo();
+		log.info("register userNo = " + userNo);
+	
+		Member member = service.read(userNo);
+		
+		member.setUserPw("");
+		
+		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
 }
 
