@@ -11,7 +11,7 @@ import lombok.Setter;
 @Component
 @ConfigurationProperties("com.shop")
 public class ShopProperties {
-	
-	private String secretKey;
 
+	private String secretKey;
+	
 }
