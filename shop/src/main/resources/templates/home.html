@@ -5,65 +5,91 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>	
 </head>
+
 <script src="/js/jQuery-2.1.4.min.js"></script>
+
+<script src="/js/login.js"></script>
 <script src="/js/code-group.js"></script>
 <script src="/js/code-detail.js"></script>
 <script src="/js/member.js"></script>
 <script src="/js/setup-admin.js"></script>
-<script src="/js/login.js"></script>
+<script src="/js/board.js"></script>
+
 <body>
 	<h2 th:text="#{common.homeWelcome}"></h2>
 	
 	<p th:text="${serverTime}">시간 표시</p>
 	
-	<!-- -->
 	<hr>
+
+	<h3>Login</h3>
+	
+	<table>
+		<tr>
+			<td><label for="userId">userId</label></td>
+			<td><input type="text" value="hongkd" id="userId"></td>
+		</tr>
+		<tr>
+			<td><label for="password">password</label></td>
+			<td><input type="text" value="1234" id="password"></td>
+		</tr>
+	</table>	
+	
+	<div>
+		<button id="loginBtn">login</button> <button id="myInfoBtn">myInfo</button>
+	</div>
+	
+	<hr>
+	
 	<h3>CodeGroup</h3>
-	<table>
-	<tr>
-	 <td><label for="groupCode">groupCode</label></td>
-	 <td><input type="text" value="" id="groupCode"></td>
-	</tr>
-	<tr>
-	 <td><label for="groupName">groupName</label></td>
-	 <td><input type="text" value="" id="groupName"></td>
-	</tr>
-	</table>
 	
+	<table>
+		<tr>
+			<td><label for="groupCode">groupCode</label></td>
+			<td><input type="text" value="" id="groupCode"></td>
+		</tr>
+		<tr>
+			<td><label for="groupName">groupName</label></td>
+			<td><input type="text" value="" id="groupName"></td>
+		</tr>
+	</table>
+
 	<div>
-	 <button id="codeGroupListBtn">LIST</button>
-	 <button id="codeGroupReadBtn">READ</button>
-	 <button id="codeGroupRegisterBtn">REGISTER</button>
-	 <button id="codeGroupDeleteBtn">DELETE</button>
-	 <button id="codeGroupModifyBtn">MODIFY</button>
-	 <button id="codeGroupResetBtn">RESET</button>
+		<button id="codeGroupListBtn">LIST</button>
+		<button id="codeGroupReadBtn">READ</button>
+		<button id="codeGroupRegisterBtn">REGISTER</button>
+		<button id="codeGroupDeleteBtn">DELETE</button>
+		<button id="codeGroupModifyBtn">MODIFY</button>
+		<button id="codeGroupResetBtn">RESET</button>
 	</div>
+	
 	<hr>
+	
 	<h3>CodeDetail</h3>
+	
 	<table>
-	 <tr>
-	  <td><label for="codeGroupCode">groupCode</label></td>
-	  <td><select id="codeGroupCode"></select></td>
-	 </tr>
-	 <tr>
-	  <td><label for="codeValue">codeValue</label></td>
-	  <td><input type="text" value="" id="codeValue"></td>
-	 </tr>
-	 <tr>
-	  <td><label for="codeName">codeName</label></td>
-	  <td><input type="text" value="" id="codeName"></td>
-	 </tr>
+		<tr>
+			<td><label for="codeGroupCode">groupCode</label></td>
+			<td><select id="codeGroupCode"></select></td>
+		</tr>
+		<tr>
+			<td><label for="codeValue">codeValue</label></td>
+			<td><input type="text" value="" id="codeValue"></td>
+		</tr>
+		<tr>
+			<td><label for="codeName">codeName</label></td>
+			<td><input type="text" value="" id="codeName"></td>
+		</tr>
 	</table>
-	
+
 	<div>
-	 <button id="codeDetailListBtn">LIST</button>
-	 <button id="codeDetailReadBtn">READ</button>
-	 <button id="codeDetailRegisterBtn">REGISTER</button>
-	 <button id="codeDetailDeleteBtn">DELETE</button>
-	 <button id="codeDetailModifyBtn">MODIFY</button>
-	 <button id="codeDetailResetBtn">RESET</button>
+		<button id="codeDetailListBtn">LIST</button>
+		<button id="codeDetailReadBtn">READ</button>
+		<button id="codeDetailRegisterBtn">REGISTER</button>
+		<button id="codeDetailDeleteBtn">DELETE</button>
+		<button id="codeDetailModifyBtn">MODIFY</button>
+		<button id="codeDetailResetBtn">RESET</button>
 	</div>
-	
 	
 	<hr>	
 	
@@ -137,47 +163,59 @@
 	</div>
 	
 	<hr>
+	
 	<h3>Setup Admin</h3>
 	
 	<table>
-	 <tr>
-	  <td><label for="adminId">userId</label></td>
-	  <td><input type="text" value="" id="adminId"></td>
-	 </tr>
-	 <tr>
-	  <td><label for="adminPw">userPw</label></td>
-	  <td><input type="text" value="" id="adminPw"></td>
-	 </tr>
-	 <tr>
-	  <td><label for="adminName">userName</label></td>
-	  <td><input type="text" value="" id="adminName"></td>
-	 </tr>
+		<tr>
+			<td><label for="adminId">userId</label></td>
+			<td><input type="text" value="" id="adminId"></td>
+		</tr>
+		<tr>
+			<td><label for="adminPw">userPw</label></td>
+			<td><input type="text" value="" id="adminPw"></td>
+		</tr>
+		<tr>
+			<td><label for="adminName">userName</label></td>
+			<td><input type="text" value="" id="adminName"></td>
+		</tr>		
 	</table>
 	
 	<div>
-	 <button id="adminRegisterBtn">REGISTER</button>
-	 <button id="adminResetBtn">RESET</button>
+		<button id="adminRegisterBtn">REGISTER</button>
+		<button id="adminResetBtn">RESET</button>
 	</div>
 	
-		<hr>
-
-	<h3>Login</h3>
+	<hr>
+	
+	<h3>Board</h3>
 	
 	<table>
 		<tr>
-			<td><label for="userId">userId</label></td>
-			<td><input type="text" value="" id="userId"></td>
+			<td><label for="boardNo">boardNo</label></td>
+			<td><input type="text" value="" id="boardNo"></td>
 		</tr>
 		<tr>
-			<td><label for="password">password</label></td>
-			<td><input type="text" value="" id="password"></td>
+			<td><label for="boardTitle">title</label></td>
+			<td><input type="text" value="" id="boardTitle"></td>
 		</tr>
-	</table>	
+		<tr>
+			<td><label for="boardContent">content</label></td>
+			<td><textarea id="boardContent"></textarea></td>
+		</tr>
+		<tr>
+			<td><label for="boardWriter">writer</label></td>
+			<td><input type="text" value="" id="boardWriter"></td>
+		</tr>	
+	</table>
 	
 	<div>
-		<button id="loginBtn">login</button> <button id="myInfoBtn">myInfo</button>
+		<button id="boardListBtn">LIST</button>
+		<button id="boardReadBtn">READ</button>
+		<button id="boardRegisterBtn">REGISTER</button>
+		<button id="boardDeleteBtn">DELETE</button>
+		<button id="boardModifyBtn">MODIFY</button>
+		<button id="boardResetBtn">RESET</button>
 	</div>
-	
-	
 </body>
 </html>

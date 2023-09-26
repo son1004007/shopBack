@@ -16,30 +16,31 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-	
-	private final AuthenticationManager authenticationManager;
-	
-	private final JwtTokenProvider jwtTokenProvider;
-	
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
-		this.authenticationManager = authenticationManager;
-		
-		this.jwtTokenProvider = jwtTokenProvider;
-		
-		setFilterProcessesUrl(SecurityConstants.AUTH_LOGIN_URL);
-	}
-	
-	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		Authentication authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-		
-		return authenticationManager.authenticate(authenticationToken);
-	}
-	
+
+    private final AuthenticationManager authenticationManager;
+    
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+        this.authenticationManager = authenticationManager;
+        
+        this.jwtTokenProvider = jwtTokenProvider;
+
+        setFilterProcessesUrl(SecurityConstants.AUTH_LOGIN_URL);
+    }
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        
+        Authentication authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        
+        return authenticationManager.authenticate(authenticationToken);
+    }
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Authentication authentication) {
         CustomUser user = ((CustomUser) authentication.getPrincipal());
@@ -55,7 +56,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.addHeader(SecurityConstants.TOKEN_HEADER, SecurityConstants.TOKEN_PREFIX + token);
         
+        
     }
-	
-
 }

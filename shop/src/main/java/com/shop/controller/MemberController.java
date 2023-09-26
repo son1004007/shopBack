@@ -6,7 +6,6 @@ import java.util.Locale;
 import com.shop.common.security.domain.CustomUser;
 import com.shop.domain.Member;
 import com.shop.service.MemberService;
-
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +57,6 @@ public class MemberController {
 		return new ResponseEntity<>(service.list(), HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{userNo}")
 	public ResponseEntity<Member> read(@PathVariable("userNo") Long userNo) throws Exception {
 		Member member = service.read(userNo);
@@ -66,13 +64,14 @@ public class MemberController {
 		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{userNo}")
 	public ResponseEntity<Void> remove(@PathVariable("userNo") Long userNo) throws Exception {
 		service.remove(userNo);
 
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
 	@PutMapping("/{userNo}")
 	public ResponseEntity<Member> modify(@PathVariable("userNo") Long userNo, @Validated @RequestBody Member member) throws Exception {
@@ -84,14 +83,9 @@ public class MemberController {
 		
 		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
-	
-	@PostMapping(value="/setup", produces="text/plain;charset=UTF-8")
-	public ResponseEntity<String> setupAdmin (
-			@Validated 
-			@RequestBody 
-			Member member
-			) throws Exception {
-		
+
+	@PostMapping(value = "/setup", produces="text/plain;charset=UTF-8")
+	public ResponseEntity<String> setupAdmin(@Validated @RequestBody Member member) throws Exception {
 		log.info("setupAdmin : member.getUserName() = " + member.getUserName());
 		log.info("setupAdmin : service.countAll() = " + service.countAll());
 		
@@ -102,13 +96,15 @@ public class MemberController {
 			member.setJob("00");
 			
 			service.setupAdmin(member);
-			
+	
 			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}
+		
 		String message = messageSource.getMessage("common.cannotSetupAdmin", null, Locale.KOREAN);
+		
 		return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
 	}
-
+		
 	@PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
 	@GetMapping("/myinfo")
 	public ResponseEntity<Member> getMyInfo(@AuthenticationPrincipal CustomUser customUser) throws Exception {		
@@ -121,5 +117,5 @@ public class MemberController {
 		
 		return new ResponseEntity<>(member, HttpStatus.OK);
 	}
+	
 }
-
