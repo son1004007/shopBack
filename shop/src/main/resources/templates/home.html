@@ -14,8 +14,10 @@
 <script src="/js/member.js"></script>
 <script src="/js/setup-admin.js"></script>
 <script src="/js/board.js"></script>
+<script src="/js/notice.js"></script>
 
 <body>
+
 	<h2 th:text="#{common.homeWelcome}"></h2>
 	
 	<p th:text="${serverTime}">시간 표시</p>
@@ -217,5 +219,34 @@
 		<button id="boardModifyBtn">MODIFY</button>
 		<button id="boardResetBtn">RESET</button>
 	</div>
+	
+	<hr>
+	
+	<h3>Notice</h3>
+	
+	<table>
+		<tr>
+			<td><label for="noticeNo">noticeNo</label></td>
+			<td><input type="text" value="" id="noticeNo"></td>
+		</tr>
+		<tr>
+			<td><label for="noticeTitle">title</label></td>
+			<td><input type="text" value="" id="noticeTitle"></td>
+		</tr>
+		<tr>
+			<td><label for="noticeContent">content</label></td>
+			<td><textarea id="noticeContent"></textarea></td>
+		</tr>
+	</table>
+	
+	<div>
+		<button id="noticeListBtn">LIST</button>
+		<button id="noticeReadBtn">READ</button>
+		<button id="noticeRegisterBtn">REGISTER</button>
+		<button id="noticeDeleteBtn">DELETE</button>
+		<button id="noticeModifyBtn">MODIFY</button>
+		<button id="noticeResetBtn">RESET</button>
+	</div>
+	
 </body>
 </html>
