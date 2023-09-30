@@ -12,6 +12,8 @@ import lombok.Setter;
 @ConfigurationProperties("com.shop")
 public class ShopProperties {
 
+	private String uploadPath;
+	
 	private String secretKey;
 	
 }
