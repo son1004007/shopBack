@@ -20,5 +20,6 @@ public interface MemberService {
 	
 	public long countAll() throws Exception;
 	
+	public int getCoin(Long userNo) throws Exception;
 }
 

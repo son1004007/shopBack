@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/notices/**").access("request.method == 'GET' ? permitAll : hasRole('ADMIN')")
 		.antMatchers("/items/**").access("request.method == 'GET' ? permitAll : hasRole('ADMIN')")
 		.antMatchers("/coins/**").access("hasRole('MEMBER')")
+		.antMatchers("/useritems/**").access("hasAnyRole('MEMBER', 'ADMIN')")
 		.anyRequest().authenticated();
 	}
 	

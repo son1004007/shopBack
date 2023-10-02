@@ -48,4 +48,25 @@ $(document).ready(function() {
 		$("#coinAmount").val("");
 	});
 	
+	$("#coinPayListBtn").on("click", function () {
+		$.ajax({
+			type : "GET",
+			url : "/coins/pay",
+			contentType : "application/json; chrset=UTF-8",
+			headers : {
+				"Authorization" : "Bearer " + ACCESS_TOKEN
+			},
+			success : function(data) {
+				console.log(data);
+				
+				alert(JSON.stringify(data));
+			},
+			error : function(xhr, status, error) {
+				alert("code:" + xhr.status + "\n"
+					+ "message : " + xhr.responseText + "\n"
+					+ "erorr: " + error);
+			}
+		});
+	});
+	
 });

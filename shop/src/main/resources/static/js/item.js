@@ -46,7 +46,7 @@ $(document).ready(function() {
 		
 		var itemObject = {
 			itemName : $("#itemName").val(),
-			price : $("itemPrice").val(),
+			price : $("#itemPrice").val(),
 			description : $("#itemDescription").val()
 		};
 		
@@ -189,4 +189,26 @@ $(document).ready(function() {
 		req.send();
 	});
 	
+	$("#itemBuyBtn").on("click", function () {
+		$.ajax({
+			type : "GET",
+			url : "/items/buy/" + $("#itemId").val(),
+			contentType : "application/json; charset=UTF-8",
+			headers : {
+				"Authorization" : "Bearer " + ACCESS_TOKEN
+			},
+			success : function(data, status, xhr) {
+				alert(data);
+			},
+			error : function(xhr, status, error) {
+				console.log("code:" + xhr.status +"\n"
+					+ "message: " + xhr.reponseText +"\n"
+					+ "error:" + error);
+					
+			var jsonObj = JSON.parse(xhr.reponseText);
+			
+			alert(jsonObj.message);
+			}
+		});
+	});
 });
