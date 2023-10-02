@@ -2,13 +2,16 @@ package com.shop.controller;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shop.common.security.domain.CustomUser;
 import com.shop.domain.Item;
+import com.shop.domain.Member;
 import com.shop.prop.ShopProperties;
 import com.shop.service.ItemService;
+import com.shop.service.MemberService;
+import com.shop.service.UserItemService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +45,12 @@ public class ItemController {
 	private final ItemService itemService;
 	
 	private final ShopProperties shopProperties;
+	
+	private final MemberService memberService;
+	
+	private final UserItemService userItemService;
+	
+	private final MessageSource messageSource;
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
@@ -125,17 +138,22 @@ public class ItemController {
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('AdMIN')")
-	@PutMapping("{itemId}")
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/{itemId}")
 	public ResponseEntity<Item> modify(
+			
 			@PathVariable("itemId")
 			Long itemId,
+			
 			@RequestPart("item")
 			String itemString,
+			
 			@RequestPart(name = "file", required = false)
 			MultipartFile originalImageFile,
+			
 			@RequestPart(name = "file2", required = false)
 			MultipartFile previewImageFile
+			
 			) throws Exception {
 		
 		log.info("itemString: " + itemString);
@@ -202,7 +220,10 @@ public class ItemController {
 	
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> displayFile(
-			@RequestParam("itemId") Long itemId
+			
+			@RequestParam("itemId") 
+			Long itemId
+			
 			) throws Exception {
 		
 		ResponseEntity<byte[]> entity = null;
@@ -308,5 +329,32 @@ public class ItemController {
 		}
 		
 		return entity;
+	}
+	
+	@GetMapping(value = "/buy/{itemId}", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> buy (
+			
+			@PathVariable("itemId") 
+			Long itemId, 
+			
+			@AuthenticationPrincipal 
+			CustomUser customUser
+			
+			) throws Exception {
+		Long userNo = customUser.getUserNo();
+		
+		log.info("buy userNo = " + userNo);
+		
+		Member member = memberService.read(userNo);
+		
+		member.setCoin(memberService.getCoin(userNo));
+		
+		Item item = itemService.read(itemId);
+		
+		userItemService.register(member, item);
+		
+		String message = messageSource.getMessage("item.purchaseComplete", null, Locale.KOREAN);
+		
+		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 }

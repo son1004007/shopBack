@@ -17,6 +17,7 @@
 <script src="/js/notice.js"></script>
 <script src="/js/item.js"></script>
 <script src="/js/coin.js"></script>
+<script src="/js/useritem.js"></script>
 
 <body>
 
@@ -264,7 +265,7 @@
 			<td><input type="text" value="" id="itemName"></td>
 		</tr>
 		<tr>
-			<td><label for="itemPrice">itemPrice</label></td>
+			<td><label for="itemPrice">price</label></td>
 			<td><input type="text" value="" id="itemPrice"></td>
 		</tr>
 		<tr>
@@ -297,6 +298,7 @@
 		<button id="itemModifyBtn">MODIFY</button>
 		<button id="itemResetBtn">RESET</button>
 		<button id="itemDownloadBtn">DOWNLOAD</button>
+		<button id="itemBuyBtn">BUY</button>
 	</div>
 	
 	<hr>
@@ -312,8 +314,41 @@
 	
 	<div>
 		<button id="coinChargeListBtn">LIST CHARGE</button>
+		<button id="conPayListBtn">LIST PAY</button>
 		<button id="coinChargeBtn">CHARGE</button>
 		<button id="coinResetBtn">RESET</button>
+	</div>
+	
+	<hr>
+	
+	<h3>UserItem</h3>
+	
+	<table>
+		<tr>
+			<td><label for="userItemNo">itemNo</label></td>
+			<td><input type="text" value="" id="userItemNo"></td>
+		</tr>
+		<tr>
+			<td><label for="userItemName">itemName</label></td>
+			<td><input type="text" value="" id="userItemName"></td>
+		</tr>
+		<tr>
+			<td><label for="userItemDescription">description</label></td>
+			<td><textarea id="userItemDescription"></textarea></td>
+		</tr>
+		<tr>
+			<td>file</td>
+			<td>
+				<div id="userItemPreview"><img src="/item/display?itemId=10" width="210" height="50"></div>
+			</td>
+		</tr>
+	</table>
+	
+	<div>
+		<button id="userItemListBtn">LIST </button>
+		<button id="userItemReadBtn">READ</button>
+		<button id="userItemResetBtn">RESET</button>
+		<button id="userItemDownloadBtn">DOWNLOAD</button>
 	</div>
 
 </body>

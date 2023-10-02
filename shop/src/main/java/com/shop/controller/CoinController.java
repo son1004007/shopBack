@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.common.security.domain.CustomUser;
 import com.shop.domain.ChargeCoin;
+import com.shop.domain.PayCoin;
 import com.shop.service.CoinService;
 
 import lombok.RequiredArgsConstructor;
@@ -56,10 +57,22 @@ public class CoinController {
 	@PreAuthorize("hasRole('MEMBER')")
 	@GetMapping
 	public ResponseEntity<List<ChargeCoin>> list(
-			@AuthenticationPrincipal CustomUser customUser
+			@AuthenticationPrincipal 
+			CustomUser customUser
 			) throws Exception {
 		Long userNo = customUser.getUserNo();
 		
 		return new ResponseEntity<>(service.list(userNo), HttpStatus.OK);
+	}
+	
+	@GetMapping("/pay")
+	@PreAuthorize("hasRole('MEMBER')")
+	public ResponseEntity<List<PayCoin>> listPayHistory(
+			@AuthenticationPrincipal 
+			CustomUser customUser
+			) throws Exception {
+		Long userNo = customUser.getUserNo();
+		
+		return new ResponseEntity<>(service.listPayHistory(userNo), HttpStatus.OK);
 	}
 }

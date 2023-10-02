@@ -111,4 +111,11 @@ public class MemberServiceImpl implements MemberService {
 	public long countAll() throws Exception {
 		return repository.count();
 	}
+	
+	@Override
+	public int getCoin(Long userNo) throws Exception {
+		Member member = repository.getOne(userNo);
+		
+		return member.getCoin();
+	}
 }
