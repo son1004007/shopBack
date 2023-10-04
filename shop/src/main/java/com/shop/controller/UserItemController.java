@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shop.common.exception.NotMyItemException;
 import com.shop.common.security.domain.CustomUser;
 import com.shop.domain.UserItem;
 import com.shop.prop.ShopProperties;
@@ -65,13 +66,24 @@ public class UserItemController {
 	public ResponseEntity<byte[]> download (
 			
 			@PathVariable("userItemNo") 
-			Long userItemNo
+			Long userItemNo,
+			
+			@AuthenticationPrincipal
+			CustomUser customUser
 			
 			) throws Exception {
 		
 		log.info("download userItemNo = " + userItemNo);
 		
 		UserItem userItem = service.read(userItemNo);
+		
+		// 구매 상품이 사용자 것인지 체크
+		Long userNo = customUser.getUserNo();
+		log.info("download userNo = " + userNo);
+		
+		if (userItem.getUserNo() != userNo) {
+			throw new NotMyItemException("It is Not My Item");
+		}
 		
 		String fullName = userItem.getPictureUrl();
 		

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.shop.common.exception.NotEnoughCoinException;
 import com.shop.domain.Item;
 import com.shop.domain.Member;
 import com.shop.domain.PayCoin;
@@ -51,6 +52,10 @@ public class UserItemServiceImpl implements UserItemService {
 		int coin = memberEntity.getCoin();
 		int amount = payCoin.getAmount();
 		
+		// 코인 부족 체크
+		if (coin < price) {
+			throw new NotEnoughCoinException("There is Not Enough Coin");
+		}
 		memberEntity.setCoin(coin - amount);
 		
 		memberRepository.save(memberEntity);

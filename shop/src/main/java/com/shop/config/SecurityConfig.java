@@ -3,9 +3,12 @@ package com.shop.config;
 import java.util.Arrays;
 
 import com.shop.common.security.CustomUserDetailsService;
+import com.shop.common.security.RestAuthenticationEntryPoint;
 import com.shop.common.security.jwt.filter.JwtAuthenticationFilter;
 import com.shop.common.security.jwt.filter.JwtRequestFilter;
 import com.shop.common.security.jwt.provider.JwtTokenProvider;
+import com.shop.security.CustomAccessDeniedHandler;
+
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +20,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -63,6 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/useritems/**").access("hasAnyRole('MEMBER', 'ADMIN')")
 		.antMatchers("/pds/**").access("request.method == 'GET' ? permitAll : hasRole('ADMIN')")
 		.anyRequest().authenticated();
+		
+		// 접근 거부 처리자 등록
+		http.exceptionHandling()
+		.authenticationEntryPoint(new RestAuthenticationEntryPoint())
+		.accessDeniedHandler(accessDeniedHandler());
 	}
 	
 	@Override
@@ -102,5 +111,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    
 	    return source;
 	}	
+	
+	// 접근 거부 처리자 생성
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler() {
+		return new CustomAccessDeniedHandler();
+	}
 	
 }
