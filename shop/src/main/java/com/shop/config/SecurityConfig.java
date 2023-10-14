@@ -9,6 +9,7 @@ import com.shop.common.security.jwt.filter.JwtRequestFilter;
 import com.shop.common.security.jwt.provider.JwtTokenProvider;
 import com.shop.security.CustomAccessDeniedHandler;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -55,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.authorizeRequests()
 		.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+		.requestMatchers(EndpointRequest.toAnyEndpoint()).hasAnyRole("ADMIN")
 		.antMatchers("/").permitAll()
 		.antMatchers("/codes/**").access("permitAll")
 		.antMatchers("/users/**").access("permitAll")
